@@ -1,7 +1,5 @@
 import java.util.*;
 
-import static java.lang.System.in;
-
 class ConverterRoman {
     Map<Character, Integer> romans = new TreeMap<>();
 
@@ -23,7 +21,7 @@ class ConverterRoman {
         return true;
     }
 
-    public int convertToInt(String string) throws Exception {
+    public int convertToInt(String string) {
         var charArr = string.toCharArray();
         int index = charArr.length - 1;
         var end = romans.get(charArr[index]);
@@ -52,11 +50,11 @@ class ConverterRoman {
         };
 
         int index = 0;
-        while(index<keys.length){
-            while (number>values[index]){
-                int d = number/values[index];
-                number = number%values[index];
-                for (int i=0;i<d;i++)
+        while (index < keys.length) {
+            while (number > values[index]) {
+                int d = number / values[index];
+                number = number % values[index];
+                for (int i = 0; i < d; i++)
                     sb.append(keys[index]);
             }
             index++;
