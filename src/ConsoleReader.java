@@ -1,3 +1,5 @@
+import org.junit.function.ThrowingRunnable;
+
 import java.util.Scanner;
 
 class ConsoleReader {
@@ -11,11 +13,28 @@ class ConsoleReader {
 
         System.out.println("Введите выражение которое надо посчитать:");
         String input = in.nextLine();
-
-        System.out.printf(getResult(chackCorrectEnter(input)));
+        String[] inputArr = checkCorrectEnter(input);
+        int[] convertedInput = convertToArrayInt(inputArr);
+        String result = getResult(convertedInput);
+        System.out.printf(result);
     }
 
-    int[] chackCorrectEnter(String input) throws Exception {
+    String getResult(int[] numbers) throws Exception {
+        int result = calculate(numbers);
+
+        if (result == 0)
+            return "0";
+
+        if (isRomain) {
+            if (result < 0)
+                throw new Exception("Римские цифры не могут быть меньше нуля!");
+            return romanianNumber.convertToRomain(result);
+        } else {
+            return String.valueOf(result);
+        }
+    }
+
+    String[] checkCorrectEnter(String input) throws Exception {
 
         String[] numbers = input.split("[+\\-*/]");
         if (numbers.length != 2)
@@ -28,7 +47,7 @@ class ConsoleReader {
                 break;
             }
         }
-        return convertToArrayInt(numbers);
+        return numbers;
     }
 
     int[] convertToArrayInt(String[] numbers) throws Exception {
@@ -74,20 +93,5 @@ class ConsoleReader {
             case "/" -> calc.division();
             default -> throw new Exception("Не возможно посчитать!");
         };
-    }
-
-    String getResult(int[] numbers) throws Exception {
-        int result = calculate(numbers);
-
-        if (result == 0)
-            return "0";
-
-        if (isRomain) {
-            if (result < 0)
-                throw new Exception("Римские цифры не могут быть меньше нуля!");
-            return romanianNumber.convertToRomain(result);
-        } else {
-            return String.valueOf(result);
-        }
     }
 }

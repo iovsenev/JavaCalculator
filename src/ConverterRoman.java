@@ -51,7 +51,7 @@ class ConverterRoman {
 
         int index = 0;
         while (index < keys.length) {
-            while (number > values[index]) {
+            while (number >= values[index]) {
                 int d = number / values[index];
                 number = number % values[index];
                 for (int i = 0; i < d; i++)
